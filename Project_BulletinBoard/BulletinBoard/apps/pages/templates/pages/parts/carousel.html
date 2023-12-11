@@ -1,0 +1,41 @@
+{% if post.video or post.image.all %}
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-interval="false">
+            <div class="carousel-inner bg-secondary">
+        {% if post.video %}
+            <div class="carousel-item active" style="height: 500px;">
+                <video class="d-block w-auto m-auto" controls autoplay height="500">
+                    <source src="/media/{{ post.video }}" type="video/mp4">
+                    Ваш браузер не поддерживает тэг video.
+                </video>
+            </div>
+            {% if post.image.count %}
+                {% for img in post.image.all %}
+                    <div class="carousel-item" style="height: 500px;">
+                        <img src="/media/{{ img.image }}" class="d-block w-auto m-auto" height="500" alt="santa">
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% elif post.image.all %}
+            {% for img in post.image.all %}
+                {% if forloop.first %}
+                    <div class="carousel-item active" style="height: 500px;">
+                        <img src="/media/{{ img.image }}" class="d-block w-auto m-auto" height="500" alt="santa">
+                    </div>
+                {% else %}
+                    <div class="carousel-item" style="height: 500px;">
+                        <img src="/media/{{ img.image }}" class="d-block w-auto m-auto" height="500" alt="santa">
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        </div>
+            <button class="carousel-control-prev" style="width: 5%;" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="w-10 carousel-control-next" style="width: 5%;" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+{% endif %}

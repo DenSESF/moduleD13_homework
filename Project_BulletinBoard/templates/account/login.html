@@ -1,0 +1,28 @@
+{% extends "default.html" %}
+{% load allauth account socialaccount %}
+{% block title %}Вход{% endblock title %}
+{% block content %}
+<div class="row justify-content-center"> 
+    <div class="col-4">
+        <h2 class="col-12 text-center">Вход</h2>
+        <p class="col-12">Если вы еще не создали учётную запись, пожалуйста <a href="{{ signup_url }}">зарегистрируйтесь</a> сначала.</p>
+        {% url 'account_login' as login_url %}
+        {% element form form=form class="col-12 my-3" method="post" action=login_url tags="entrance,login" %}
+            {% slot body %}
+                {% csrf_token %}
+                {% element fields form=form unlabeled=True %}
+                {% endelement %}
+                {% if redirect_field_value %}
+                    <input type="hidden"
+                        name="{{ redirect_field_name }}"
+                        value="{{ redirect_field_value }}" />
+                {% endif %}
+            {% endslot %}
+            {% slot actions %}
+                {% element button type="submit" class="btn btn-primary my-3 col-12" tags="prominent,login" %}Войти{% endelement %}
+            {% endslot %}
+        {% endelement %}
+        {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,37 @@
+{% extends 'default.html' %}
+{% load allauth %}
+
+{% block title %}{{ post.header }}{% endblock title %}
+
+{% block content %}
+<div class="row justify-content-center py-2">
+    <div class="col-10">
+        <h2 class="text-center">{{ post.header }}</h2>
+    </div>
+    <div class="col-10">
+        {% include "pages/parts/carousel.html" %}
+    </div>
+</div>
+<div class="row justify-content-center py-2">
+    <div class="col-5"><p class="text-start my-1">Автор: {{ post.author.username }}</p></div>
+    <div class="col-5"><p class="text-end my-1">Категория: {{ post.category_name }}</p></div>
+</div>
+<div class="row justify-content-center py-2">
+    <div class="col-10"><p class="lead" style="text-indent: 1em; text-align: justify;">{{ post.text }}</p></div>
+</div>
+    {% if post.author.username == request.user.username %}
+        <div class="row justify-content-center pt-2 pb-5">
+            <div class="col-10 text-end">
+                <a class="btn btn-success btn-sm" href="{% url 'pages:advert_edit' post.id %}">Редактировать <span class="far fa-edit"></span></a>
+                <a class="btn btn-danger btn-sm" href="{% url 'pages:advert_delete' post.id %}">Удалить <span class="far fa-trash-alt"></span></a>
+            </div>
+        </div>
+    {% elif user.is_authenticated %}
+        <div class="row justify-content-center pt-2 pb-5">
+        {% comment %} form reply {% endcomment %}
+            <div class="col-10 text-end">
+                <a class="btn btn-primary btn-sm" href="{% url 'pages:advert_reply' post.id %}">Откликнутся <span class="fas fa-reply"></span></a>
+            </div>
+        </div>
+    {% endif %}
+{% endblock content %}

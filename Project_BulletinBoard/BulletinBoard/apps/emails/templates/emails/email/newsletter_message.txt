@@ -1,0 +1,5 @@
+Новость от {% now 'd-m-Y H:i' %}
+
+{{ subject }}
+
+{{ message }}

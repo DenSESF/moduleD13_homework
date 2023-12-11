@@ -1,0 +1,11 @@
+{% extends 'default.html' %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block content %}
+    <h2><span class="fas fa-envelope"></span> {{ title }}</h2>
+        <div class="text-center pt-2 pb-5">
+            <a class="btn btn-primary" href="{% url 'emails:newsletter' %}">Отправить еще <span class="far fa-envelope"></span></a>
+        </div>
+    </form>
+{% endblock content %}

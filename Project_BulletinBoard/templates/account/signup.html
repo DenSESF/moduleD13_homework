@@ -1,0 +1,28 @@
+{% extends "default.html" %}
+{% load allauth socialaccount %}
+{% block title %}Регистрация{% endblock title %}
+{% block content %}
+<div class="row justify-content-center"> 
+    <div class="col-4">
+        <h2 class="col-12 text-center">Регистрация</h2>
+        <p class="col-12">У вас уже есть аккаунт? Пожалуйста, <a href="{{ login_url }}">войдите в систему</a>.</p>
+    {% url 'account_signup' as action_url %}
+    {% element form form=form method="post" class="col-12 my-3" action=action_url tags="entrance,signup" %}
+        {% slot body %}
+            {% csrf_token %}
+            {% element fields form=form unlabeled=True %}
+            {% endelement %}
+            {% if redirect_field_value %}
+                <input type="hidden"
+                       name="{{ redirect_field_name }}"
+                       value="{{ redirect_field_value }}" />
+            {% endif %}
+        {% endslot %}
+        {% slot actions %}
+            {% element button tags="prominent,signup" type="submit" class="btn btn-primary my-3 col-12" %}Регистрация{% endelement %}
+        {% endslot %}
+    {% endelement %}
+    {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+    </div>
+</div>
+{% endblock content %}

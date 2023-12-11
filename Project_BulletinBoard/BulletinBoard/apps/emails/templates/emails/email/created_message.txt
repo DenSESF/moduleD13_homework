@@ -1,0 +1,9 @@
+Получен новый отклик на объявление:
+
+{{ reply.advert }}
+
+От: {{ reply.author.username }}
+
+Отклик.
+
+{{ reply.text }}

@@ -1,0 +1,9 @@
+{% load pages_filters %}
+<tr>
+    <td><a href="{% url 'pages:advert_detail' post.id %}">{{ post.header|truncatechars:40 }}</a></td>
+    <td>
+        <div>{{ post.text|truncatewords:20 }}</div>
+        <div class="text-start"><span class="fas fa-video"></span> {% if post.video %}1{% else %}0{% endif %} <span class="far fa-images"></span> {{ post.image.all.count }}
+        <span class="far fa-comment-dots"></span> {% firstof reply_count|get_reply_count:post.id '0' %}</div>
+    </td>
+</tr>

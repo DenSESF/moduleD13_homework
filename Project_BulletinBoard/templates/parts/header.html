@@ -1,0 +1,32 @@
+{% load allauth %}
+{% load staff_filters %}
+<header class="p-3 text-bg-dark">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="32"role="img" fill="currentColor" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M368 32h-56a16 16 0 0 0 -16 16v48h-48V48a16 16 0 0 0 -16-16h-80a16 16 0 0 0 -16 16v48H88.1V48a16 16 0 0 0 -16-16H16A16 16 0 0 0 0 48v176l64 32c0 48.3-1.5 95-13.2 160h282.4C321.5 351 320 303.7 320 256l64-32V48a16 16 0 0 0 -16-16zM224 320h-64v-64a32 32 0 0 1 64 0zm144 128H16a16 16 0 0 0 -16 16v32a16 16 0 0 0 16 16h352a16 16 0 0 0 16-16v-32a16 16 0 0 0 -16-16z"/></svg>
+                </a>
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="/" class="nav-link px-2 text-white">Объявления</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url "pages:advert_create" %}" class="nav-link px-2 text-white">Добавить объявление</a></li>
+                        <li><a href="{% url "profiles:replies" user.username %}" class="nav-link px-2 text-white">Отклики</a></li>
+                        {% if user|is_staff %}
+                            <li><a href="{% url "emails:newsletter"%}" class="nav-link px-2 text-white">Отправить новость</a></li>
+                        {% endif %}
+                    {% endif %}
+                </ul>
+                <div class="text-end">
+                    {% if user.is_authenticated %}
+                        {% load account %}
+                        <a class="btn btn-primary me-2" href="/accounts/2fa">Активировать 2FA <span class="fas fa-qrcode"></span></a>
+                        <a class="btn btn-outline-light me-2" href="{% url 'account_logout' %}">{% user_display user %} <span class="fas fa-sign-out-alt"></span></a>
+                    {% else %}
+                        <a class="btn btn-outline-light me-2" href="{% url 'account_login' %}">Вход <span class="fas fa-sign-in-alt"></span></a>
+                        <a class="btn btn-warning" href="{% url 'account_signup' %}">Регистрация <span class="fas fa-user-plus"></span></a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+</header>
+

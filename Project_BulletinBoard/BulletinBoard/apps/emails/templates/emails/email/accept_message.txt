@@ -1,0 +1,17 @@
+Ваш отклик на объявление принят.
+
+Отклик.
+
+{{ reply.text }}
+
+Объявление.
+
+Автор: {{ reply.advert.author.username }}
+
+Заголовок:
+
+{{ reply.advert.header }}
+
+Cодержимое:
+
+{{ reply.advert.text }}

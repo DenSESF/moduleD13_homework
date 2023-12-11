@@ -1,0 +1,56 @@
+{% if is_paginated %}
+    <nav>
+    <ul class="pagination my-auto">
+    {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page=1">
+                <span>первая</span>
+            </a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                <span>{{ page_obj.previous_page_number }}</span>
+            </a>
+        </li>
+    {% else %}
+        <li class="page-item disabled">
+            <a class="page-link">
+                <span>первая</span>
+            </a>
+        </li>
+        <li class="page-item disabled">
+            <a class="page-link"><span class="fas fa-angle-double-left"></span></a>
+        </li>
+    {% endif %}
+    <li class="page-item active">
+        <a class="page-link">
+            <span>{{ page_obj.number }}</span>
+        </a>
+    </li>
+    {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                <span>{{ page_obj.next_page_number }}</span>
+            </a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">
+                <span>последняя</span>
+            </a>
+        </li>
+    {% else %}
+        <li class="page-item disabled">
+            <a class="page-link">
+                <span class="fas fa-angle-double-right"></span>
+            </a>
+        </li>
+        <li class="page-item disabled">
+            <a class="page-link">
+                <span>последняя</span>
+            </a>
+        </li>    
+    {% endif %}
+    </ul>
+    </nav>
+{% else %}
+{% endif %}

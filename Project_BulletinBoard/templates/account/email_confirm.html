@@ -1,0 +1,33 @@
+{% extends "default.html" %}
+{% load account %}
+{% load allauth %}
+{% block title %}Подтвердите адрес эдектронной почты{% endblock title %}
+{% block content %}
+<div class="row justify-content-center"> 
+    <div class="col-6">
+        <h2 class="col-12 text-start">Подтвердите адрес эдектронной почты</h2>
+        {% if confirmation %}
+            {% user_display confirmation.email_address.user as user_display %}
+            {% if can_confirm %}
+                <p class="col-12">
+                    {%with confirmation.email_address.email as email %}Пожалуйста, подтвердите, что <a href="mailto:{{ email }}">{{ email }}</a> — это адрес электронной почты пользователя {{ user_display }}.{% endwith %}
+                </p>
+                {% url 'account_confirm_email' confirmation.key as action_url %}
+                {% element form method="post" action=action_url class="col-12 my-3"%}
+                    {% slot actions %}
+                        {% csrf_token %}
+                        {% element button type="submit" class="btn btn-primary my-3 col-12" %}Подтвердить{% endelement %}
+                    {% endslot %}
+                {% endelement %}
+            {% else %}
+                <p  class="col-12">Невозможно подтвердить {{ email }}, поскольку он уже подтвержден другой учетной записью.</p>
+            {% endif %}
+        {% else %}
+            {% url 'account_email' as email_url %}
+            <p  class="col-12">
+                Срок действия ссылки для подтверждения электронной почты истек или она недействительна. Пожалуйста, <a href="{{ email_url }}">отправьте новый запрос</a> на подтверждение электронной почты.
+            </p>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

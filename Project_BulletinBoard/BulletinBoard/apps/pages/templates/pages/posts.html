@@ -1,0 +1,41 @@
+{% extends 'default.html' %}
+{% load allauth %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block content %}
+    <h2><span class="fas fa-scroll"></span> {{ title }}</h2>
+    <hr>
+    <div class="row justify-content-center">
+        <div class="col-12 my-auto">
+            <p class="text-end fs-5 my-auto">Всего объявлений: {{ paginator.count }}</p>
+        </div>
+    </div>
+    <table class="table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Заголовок</th>
+                <th scope="col">Объявление</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if posts %}
+            {% for post in posts %}
+                {% include 'pages/parts/posts_tbody.html' %}
+            {% endfor %}
+        {% endif %}
+        {% if not posts %}
+            <tr>
+                <td colspan="2"><p class="fs-5 my-auto">Объявлений нет</p></td>
+            </tr>
+        {% endif %}
+        </tbody>
+        </table>
+        <div class="row justify-content-center pb-5">
+            <div class="col-12 my-auto">
+                {% if posts %}
+                    {% include 'pages/parts/paginator.html' %}
+                {% endif %}
+            </div>
+        </div>
+{% endblock content %}
